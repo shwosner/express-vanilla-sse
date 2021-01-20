@@ -1,6 +1,7 @@
-# Real-time Chat with SSE (Server Sent Events)
+# Real-time Chat with SSE (Server Sent Events) with React
 
 This is an example application which uses vanilla _Server Sent Events_ for real-time chat implementation without web sockets and long looping.
+Client is built with **React and Charka-UI**
 
 # Install
 
@@ -8,10 +9,15 @@ Important note: This app can only run on node v14.15.4 or higher.
 
 `npm install` to setup dependencies
 
-# Run
+# Dev
 
-`npm run dev` to run server on port 4000 with _nodemon_
-`npm start` to run server on port 4000
+`npm run dev` to run server on port 4000 and react client on port 3000 (concurrently)
+
+Or `npm run server` and `npm run client` in two different terminals.
+
+# Build
+
+`npm run build` to build the react client
 
 Open `client.html` in your browser (IE not supported) in several tabs and try to type and send some text.
 

@@ -1,5 +1,5 @@
 {
-  "name": "sse-chat",
+  "name": "sse-chat-react",
   "author": "Shimon Wosner <shwosner@gmail.com>",
   "version": "0.0.1",
   "type": "module",
@@ -9,11 +9,15 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "concurrently": "^5.3.0",
     "nodemon": "^2.0.7"
   },
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "server.js"
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "start": "server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "build": "cd client && npm run build"
   },
   "engines": {
     "node": ">=14.15.4"

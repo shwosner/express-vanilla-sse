@@ -1,6 +1,6 @@
 import express from "express";
 import compression from "compression";
-
+import path from "path";
 const app = express();
 
 app.use(express.json());
@@ -9,6 +9,8 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 });
+// Serve any static files
+app.use(express.static(path.join(process.cwd(), "client/build")));
 let connectionId = 0;
 let connections = 0;
 
@@ -33,6 +35,8 @@ app.get("/stream", (req, res, next) => {
   console.log(`client ${connectionId} connected to SSE`);
   // console.log("connections :>> ", connections);
   res.write(`event: connected\n`);
+  console.log(`Currently ${connections} connections`);
+
   res.status(200).write(`data: Connected to stream\n\n`);
   res.flush();
 
@@ -73,8 +77,8 @@ app.post("/add_message", (req, res) => {
   res.status(200).json({ message: "Success" }).end();
 });
 app.get("/", (req, res) => {
-  res.send(messages);
+  res.sendFile(path.join(process.cwd(), "client/build/index.html"));
 });
-app.listen(4000, function () {
+app.listen(process.env.PORT || 4000, function () {
   console.log("Example app listening on port 4000!");
 });
