@@ -1,24 +1,33 @@
-import React from 'react';
+import React from "react";
 import {
   ChakraProvider,
   Box,
   Text,
   Link,
-  VStack,
-  Code,
   Grid,
   theme,
-} from '@chakra-ui/react';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
+  Input,
+  Button,
+  Container,
+} from "@chakra-ui/react";
+import { ColorModeSwitcher } from "./ColorModeSwitcher";
+import MessageForm from "./MessageForm";
 
 function App() {
+  const handleSend = (message) =>
+    new Promise((resolve, reject) => {
+      alert(`Message ${message}`);
+      resolve();
+    });
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
+          <Container>
+            <MessageForm handleSend={handleSend} />
+          </Container>
+          {/* <VStack spacing={8}>
             <Logo h="40vmin" pointerEvents="none" />
             <Text>
               Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
@@ -32,7 +41,7 @@ function App() {
             >
               Learn Chakra
             </Link>
-          </VStack>
+          </VStack> */}
         </Grid>
       </Box>
     </ChakraProvider>
