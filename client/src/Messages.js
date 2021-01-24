@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import AlwaysScrollToBottom from "./AlwaysScrollToBottom";
 import Message from "./Message";
 
 export default function Messages() {
@@ -47,12 +48,21 @@ export default function Messages() {
     };
   }, []);
   return (
-    <Box mt="30" mb="10" bg="gray.100" p="5" height="sm" overflow="auto">
+    <Box
+      mt="4"
+      bg="white"
+      p="5"
+      // height="md"
+      height="26rem"
+      overflow="auto"
+      borderRadius="10px"
+    >
       {messages.length
         ? messages.map((message, index) => (
             <Message key={index} message={message} />
           ))
         : "No messages"}
+      <AlwaysScrollToBottom />
     </Box>
   );
 }

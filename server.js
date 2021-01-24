@@ -19,6 +19,11 @@ let connections = 0;
 const messages = [
   { text: "Message one", timestamp: Date.now() - 5000, userName: "bot" },
   { text: "Message nubber two", timestamp: Date.now(), userName: "bot2" },
+  {
+    text: "Message nubber two klhbblkjhkujyvytcjycjycytccytc",
+    timestamp: Date.now(),
+    userName: "bot2",
+  },
 ];
 
 app.get("/stream", (req, res, next) => {

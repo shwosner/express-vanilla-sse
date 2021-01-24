@@ -8,21 +8,20 @@ dayjs.extend(relativeTime);
 
 export default function Message({ message, currentUser = "bot" }) {
   const isYou = message.userName === currentUser;
-  const messageStyle = {
-    isYou: "",
-  };
+
   return (
     <Box display="grid" justifyItems={isYou ? "end" : "start"}>
       <Grid
-        templateColumns="repeat(2, 1fr)"
-        templateRows="repeat(2, 1fr)"
-        // gap={6}
-        w="80%"
-        // h="10"
+        templateColumns="1fr 1fr"
+        templateRows="30px 1fr"
+        w="70%"
         px="3"
         py="2"
-        bg="white"
-        mb="5"
+        borderRadius="5px"
+        borderTopLeftRadius={isYou ? "5px" : "0"}
+        borderTopRightRadius={isYou ? "0" : "5px"}
+        bg="gray.100"
+        mt="5"
         position="relative"
         _after={{
           position: "absolute",
@@ -30,12 +29,14 @@ export default function Message({ message, currentUser = "bot" }) {
           width: 0,
           height: 0,
           borderStyle: "solid",
-          // borderWidth: "0px 10px 10px 0",
-          borderWidth: "0px 0px 10px 10px",
-          borderColor: "transparent #fff transparent transparent",
+          borderWidth: isYou ? "0px 0px 10px 10px" : "0px 10px 10px 0",
+          // borderWidth: "0px 0px 10px 10px",
+          borderColor: isYou
+            ? "transparent transparent transparent #EDF2F7"
+            : "transparent #EDF2F7 transparent transparent",
           top: 0,
-          // left: "-10px",
-          right: "-10px",
+          left: isYou ? "auto" : "-10px",
+          right: isYou ? "-10px" : "auto",
         }}
       >
         <GridItem
@@ -48,10 +49,15 @@ export default function Message({ message, currentUser = "bot" }) {
         >
           {isYou ? "You" : message.userName}
         </GridItem>
-        <GridItem justifySelf="start" fontSize="md">
+        <GridItem
+          justifySelf="start"
+          textAlign="left"
+          wordBreak="break-word"
+          fontSize="md"
+        >
           {message.text}
         </GridItem>
-        <GridItem fontSize="sm" justifySelf="end">
+        <GridItem fontSize="sm" justifySelf="end" alignSelf="end">
           {/* {dayjs(message.timestamp).fromNow()} */}
           {new Date(message.timestamp).toLocaleTimeString()}
         </GridItem>
