@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Input, Stack, IconButton } from "@chakra-ui/react";
 import { BiSend } from "react-icons/bi";
+import axios from "axios";
 
-export default function MessageForm({ handleSend }) {
+export default function MessageForm({ userName = "Shimon" }) {
   const [message, setMessage] = useState("");
-  useEffect(() => {
-    console.log("message :>> ", message);
-  }, [message]);
+  // useEffect(() => {
+  //   console.log("message :>> ", message);
+  // }, [message]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!message) return;
-    return handleSend(message)
+    axios
+      .post("http://localhost:4000/new_message", { text: message, userName })
       .then((res) => {
         setMessage("");
       })
-      .catch((error) => {});
+      .catch((error) => console.log("error sending message:", error));
   };
 
   return (

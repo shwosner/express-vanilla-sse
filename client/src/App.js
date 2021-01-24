@@ -12,20 +12,17 @@ import {
 } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import MessageForm from "./MessageForm";
+import Messages from "./Messages";
 
 function App() {
-  const handleSend = (message) =>
-    new Promise((resolve, reject) => {
-      alert(`Message ${message}`);
-      resolve();
-    });
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
-          <Container>
-            <MessageForm handleSend={handleSend} />
+          <Container boxSize="lg">
+            <Messages />
+            <MessageForm />
           </Container>
           {/* <VStack spacing={8}>
             <Logo h="40vmin" pointerEvents="none" />
