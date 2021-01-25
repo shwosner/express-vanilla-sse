@@ -1,7 +1,7 @@
 # Real-time Chat with SSE (Server Sent Events) with React
 
 This is an example application which uses vanilla _Server Sent Events_ for real-time chat implementation without web sockets and long looping.
-Client is built with **React and Charka-UI**
+Client is built with **React and Chakra-UI**
 
 # Install
 
