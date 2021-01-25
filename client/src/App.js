@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     const localName = localStorage.getItem("username");
     console.log("localName :>> ", localName);
-    localName && setUsername(localName);
+    setUsername(localName || "Guest");
   }, []);
 
   return (

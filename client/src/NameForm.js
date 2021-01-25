@@ -1,18 +1,37 @@
-import React, { useState } from "react";
-import { Input, Stack, IconButton, Heading } from "@chakra-ui/react";
+import React, { useEffect, useRef, useState } from "react";
+import { Input, Stack, IconButton } from "@chakra-ui/react";
 import { BiSave, BiEdit } from "react-icons/bi";
 
 export default function NameForm({ username, setUsername }) {
   const [newUsername, setNewUsername] = useState(username);
   const [isEditing, setIsEditing] = useState(false);
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+  };
 
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (isEditing) {
+      inputRef.current.focus();
+    }
+  }, [isEditing]);
+  useEffect(() => {
+    setNewUsername(username);
+  }, [username]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!newUsername) return;
+    toggleEditing();
+
+    if (!newUsername) {
+      setNewUsername(username);
+      return;
+    }
     // setUsername(newUsername);
+    // setIsEditing(false);
+
     setUsername(newUsername);
     localStorage.setItem("username", newUsername);
-    setIsEditing(false);
   };
 
   return (
@@ -27,23 +46,17 @@ export default function NameForm({ username, setUsername }) {
             bg="gray.100"
             size="sm"
             border="none"
-            onClick={() => setIsEditing(true)}
             onBlur={handleSubmit}
+            ref={inputRef}
           />
         ) : (
-          <span>
-            Welcome{" "}
-            <strong
-              onClick={() => {
-                setIsEditing(true);
-              }}
-            >
-              {newUsername}
-            </strong>
+          <span onClick={toggleEditing} style={{ cursor: "pointer" }}>
+            Welcome <strong>{newUsername}</strong>
           </span>
         )}
         <IconButton
           size="sm"
+          pb="3px"
           variant="outline"
           colorScheme="teal"
           aria-label="Save"
@@ -52,10 +65,9 @@ export default function NameForm({ username, setUsername }) {
           // type="submit"
           border="none"
           onClick={(e) => {
-            console.log("clicked editing?", isEditing);
             if (isEditing) {
               handleSubmit(e);
-            } else setIsEditing(true);
+            } else toggleEditing();
           }}
         />
       </Stack>

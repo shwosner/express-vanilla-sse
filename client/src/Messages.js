@@ -51,10 +51,10 @@ export default function Messages({ username }) {
     return messages.map((message, index) => {
       const isYou = message.username === username;
       return (
-        <>
-          <Message key={index} message={message} isYou={isYou} />
+        <div key={index}>
+          <Message message={message} isYou={isYou} />
           <AlwaysScrollToBottom />
-        </>
+        </div>
       );
     });
   }
