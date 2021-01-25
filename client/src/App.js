@@ -1,37 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ChakraProvider,
   Box,
-  Text,
-  Link,
   Grid,
   theme,
-  Input,
-  Button,
   Container,
   Image,
+  GridItem,
 } from "@chakra-ui/react";
 // import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import MessageForm from "./MessageForm";
 import Messages from "./Messages";
 import "./App.css";
+import NameForm from "./NameForm";
 function App() {
+  const [username, setUsername] = useState("");
+  useEffect(() => {
+    const localName = localStorage.getItem("username");
+    console.log("localName :>> ", localName);
+    localName && setUsername(localName);
+  }, []);
+
   return (
-    <ChakraProvider
-    // theme={theme}
-    >
-      <Box textAlign="center" bg="gray.100">
-        <Grid minH="100vh" p={3}>
-          {/* <ColorModeSwitcher justifySelf="flex-end" /> */}
-          <Container maxW="600px">
-            <Grid justifyContent="center">
-              <Image src="/rchat_logo.png" width="100px" />
-            </Grid>
-            <Messages />
-            <MessageForm />
-          </Container>
+    <ChakraProvider theme={theme}>
+      {/* <ColorModeSwitcher justifySelf="flex-end" /> */}
+      <Grid minH="100vh" templateRows="min-content auto">
+        <Grid templateColumns="1fr 1fr" justifyItems="center">
+          <GridItem justifySelf="start" m="2">
+            <Image src="/rchat_logo.png" height="60px" />
+          </GridItem>
+          <GridItem justifySelf="end" alignSelf="center" mr="5">
+            <NameForm username={username} setUsername={setUsername} />
+          </GridItem>
         </Grid>
-      </Box>
+        <Box bg="gray.100">
+          <Container maxW="600px" mt="5">
+            <Box
+              bg="white"
+              p="5"
+              // height="md"
+              height="28rem"
+              overflow="auto"
+              borderRadius="10px"
+            >
+              <Messages username={username} />
+            </Box>
+            <MessageForm username={username} />
+          </Container>
+        </Box>
+      </Grid>
     </ChakraProvider>
   );
 }

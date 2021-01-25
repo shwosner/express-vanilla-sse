@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import AlwaysScrollToBottom from "./AlwaysScrollToBottom";
 import Message from "./Message";
 
-export default function Messages() {
+export default function Messages({ username }) {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -47,22 +47,36 @@ export default function Messages() {
       console.log("Connection was closed by useEffect unmount");
     };
   }, []);
-  return (
-    <Box
-      mt="4"
-      bg="white"
-      p="5"
-      // height="md"
-      height="26rem"
-      overflow="auto"
-      borderRadius="10px"
-    >
-      {messages.length
-        ? messages.map((message, index) => (
-            <Message key={index} message={message} />
-          ))
-        : "No messages"}
-      <AlwaysScrollToBottom />
-    </Box>
-  );
+  if (messages.length) {
+    return messages.map((message, index) => {
+      const isYou = message.username === username;
+      return (
+        <>
+          <Message key={index} message={message} isYou={isYou} />
+          <AlwaysScrollToBottom />
+        </>
+      );
+    });
+  }
+  return "No messages";
+  // return (
+  //   <Box
+  //     // mt="4"
+  //     bg="white"
+  //     p="5"
+  //     // height="md"
+  //     // height="26rem"
+  //     // height="100%"
+  //     overflow="auto"
+  //     borderRadius="10px"
+  //   >
+  //     {messages.length
+  //       ? messages.map((message, index) => {
+  //           const isYou = message.username === username;
+  //           return <Message key={index} message={message} isYou={isYou} />;
+  //         })
+  //       : "No messages"}
+  //     <AlwaysScrollToBottom />
+  //   </Box>
+  // );
 }

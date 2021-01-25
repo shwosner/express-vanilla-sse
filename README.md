@@ -19,8 +19,6 @@ Or `npm run server` and `npm run client` in two different terminals.
 
 `npm run build` to build the react client
 
-Open `client.html` in your browser (IE not supported) in several tabs and try to type and send some text.
-
 # Example
 
 !['example'](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEMu_7Zrv8wPEw2zvfLT3FOcYBjNJCOy1bKQ&usqp=CAU "example")

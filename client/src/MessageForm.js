@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Input, Stack, IconButton } from "@chakra-ui/react";
 import { BiSend } from "react-icons/bi";
 import axios from "axios";
 
-export default function MessageForm({ userName = "Shimon" }) {
+export default function MessageForm({ username }) {
   const [message, setMessage] = useState("");
   // useEffect(() => {
   //   console.log("message :>> ", message);
@@ -12,7 +12,7 @@ export default function MessageForm({ userName = "Shimon" }) {
     e.preventDefault();
     if (!message) return;
     axios
-      .post("http://localhost:4000/new_message", { text: message, userName })
+      .post("http://localhost:4000/new_message", { text: message, username })
       .then((res) => {
         setMessage("");
       })

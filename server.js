@@ -17,13 +17,8 @@ let connectionId = 0;
 let connections = 0;
 
 const messages = [
-  { text: "Message one", timestamp: Date.now() - 5000, userName: "bot" },
-  { text: "Message nubber two", timestamp: Date.now(), userName: "bot2" },
-  {
-    text: "Message nubber two klhbblkjhkujyvytcjycjycytccytc",
-    timestamp: Date.now(),
-    userName: "bot2",
-  },
+  { text: "Message one", timestamp: Date.now() - 5000, username: "bot" },
+  { text: "Message nubber two", timestamp: Date.now(), username: "bot2" },
 ];
 
 app.get("/stream", (req, res, next) => {
@@ -69,8 +64,8 @@ app.get("/stream", (req, res, next) => {
 
 app.post("/new_message", (req, res) => {
   console.log("req.body :>> ", req.body);
-  const { text, userName } = req.body;
-  messages.push({ text, userName, timestamp: Date.now() });
+  const { text, username } = req.body;
+  messages.push({ text, username, timestamp: Date.now() });
 
   app.emit("new_message_arrived");
   res.status(200).json({ message: "Success" }).end();

@@ -6,9 +6,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 // dayjs.extend(localizedFormat);
 dayjs.extend(relativeTime);
 
-export default function Message({ message, currentUser = "bot" }) {
-  const isYou = message.userName === currentUser;
-
+export default function Message({ message, isYou }) {
   return (
     <Box display="grid" justifyItems={isYou ? "end" : "start"}>
       <Grid
@@ -47,7 +45,7 @@ export default function Message({ message, currentUser = "bot" }) {
           color="gray.500"
           mb="2"
         >
-          {isYou ? "You" : message.userName}
+          {isYou ? "You" : message.username}
         </GridItem>
         <GridItem
           justifySelf="start"
