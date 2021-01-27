@@ -1,20 +1,23 @@
-import { Box } from "@chakra-ui/react";
+import { Alert, Box, Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import AlwaysScrollToBottom from "./AlwaysScrollToBottom";
 import Message from "./Message";
 
 export default function Messages({ username }) {
   const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    console.log("effect ran");
+  const [hasStreamError, setHasStreamError] = useState(false);
+  let stream = null;
+  const connectToStream = () => {
+    console.log("called connectToStream()");
+    setHasStreamError(false);
     if (!!window.EventSource) {
       console.log("connecting to source");
-      var stream = new EventSource("http://localhost:4000/stream");
+      stream = new EventSource("http://localhost:4000/stream");
 
       stream.onopen = function () {
         console.log("Connection was opened");
       };
+
       stream.addEventListener(
         "connected",
         function (event) {
@@ -38,27 +41,68 @@ export default function Messages({ username }) {
       stream.onerror = function (error) {
         console.log("Stream error:", error);
         if (error.currentTarget.readyState === 0) {
+          // stream = null;
+          setHasStreamError(true);
+          stream.close();
           console.log("Connection was closed");
         }
       };
     }
+  };
+
+  useEffect(() => {
+    console.log("effect ran");
+    connectToStream();
     return () => {
       stream && stream.close();
       console.log("Connection was closed by useEffect unmount");
     };
   }, []);
-  if (messages.length) {
-    return messages.map((message, index) => {
-      const isYou = message.username === username;
-      return (
-        <div key={index}>
-          <Message message={message} isYou={isYou} />
-          <AlwaysScrollToBottom />
-        </div>
-      );
-    });
-  }
-  return "No messages";
+
+  // if (messages.length) {
+  //   return messages.map((message, index) => {
+  //     const isYou = message.username === username;
+  //     return (
+  //       <div key={index}>
+  //         <Message message={message} isYou={isYou} />
+  //         <AlwaysScrollToBottom />
+  //       </div>
+  //     );
+  //   });
+  // }
+
+  return (
+    <>
+      {messages.length ? (
+        messages.map((message, index) => {
+          const isYou = message.username === username;
+          return (
+            <div key={index}>
+              <Message message={message} isYou={isYou} />
+              <AlwaysScrollToBottom />
+            </div>
+          );
+        })
+      ) : (
+        <Box as="h3" textAlign="center">
+          No messages 😞
+        </Box>
+      )}
+      {hasStreamError && (
+        <Alert status="error" mt="20px">
+          Disconnected from server
+          <Button
+            ml="5px"
+            onClick={connectToStream}
+            colorScheme="red"
+            variant="link"
+          >
+            try to reconnect
+          </Button>
+        </Alert>
+      )}
+    </>
+  );
   // return (
   //   <Box
   //     // mt="4"
