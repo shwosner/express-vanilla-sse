@@ -34,15 +34,15 @@ function App() {
           </GridItem>
         </Grid>
         <Box bg="gray.100">
-          <Container maxW="600px" mt="5">
-            <Box
-              bg="white"
-              p="5"
-              // height="md"
-              height="28rem"
-              overflow="auto"
-              borderRadius="10px"
-            >
+          <Container
+            maxW="600px"
+            mt="5"
+            display="grid"
+            gridTemplateRows="1fr 60px"
+            height="96%"
+            pb="12px"
+          >
+            <Box bg="white" p="5" overflow="auto" borderRadius="10px">
               <Messages username={username} />
             </Box>
             <MessageForm username={username} />
