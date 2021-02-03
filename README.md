@@ -21,4 +21,4 @@ Or `npm run server` and `npm run client` in two different terminals.
 
 # Example
 
-!['example'](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEMu_7Zrv8wPEw2zvfLT3FOcYBjNJCOy1bKQ&usqp=CAU "example")
+!['example'](https://i.ibb.co/7SmCfXt/SSE.png "example")
