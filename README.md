@@ -20,7 +20,7 @@ Or `npm run server` and `npm run client` in two different terminals.
 
 `npm run build` to build the react client
 
-# production
+# Production
 
 `npm start` - this will start the Express server (without nodemon), and also serve the React client build.
 
